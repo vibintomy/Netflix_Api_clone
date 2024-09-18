@@ -7,18 +7,24 @@ import 'package:netflix_clone/presentation/widgets/main_title_card.dart';
 
 ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
 
-class ScreenHome extends StatelessWidget {
+class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
 
   @override
+  State<ScreenHome> createState() => _ScreenHomeState();
+}
+
+class _ScreenHomeState extends State<ScreenHome> {
+  @override
   Widget build(BuildContext context) {
+    
     return Scaffold(body: ValueListenableBuilder(
       valueListenable: scrollNotifier,
       builder: (BuildContext context, index, _) {
         return NotificationListener<UserScrollNotification>(
           onNotification: (notification) {
             final ScrollDirection direction = notification.direction;
-            print(direction);
+          
             if (direction == ScrollDirection.reverse) {
               scrollNotifier.value = false;
             } else if (direction == ScrollDirection.forward) {
@@ -28,7 +34,7 @@ class ScreenHome extends StatelessWidget {
           },
           child: Stack(
             children: [
-              ListView(children: [
+              ListView(children:const [
                 BackgroundCard(),
                 MainTitleCard(
                   title: 'Released in the past year',
@@ -51,7 +57,7 @@ class ScreenHome extends StatelessWidget {
               ),
              scrollNotifier.value== true
              ? AnimatedContainer(
-              duration: Duration(milliseconds: 1000),
+              duration:const Duration(milliseconds: 1000),
                 width: double.infinity,
                 height: 90,
                 color: Colors.transparent,

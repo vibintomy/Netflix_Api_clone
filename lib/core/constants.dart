@@ -11,9 +11,11 @@ const kheight = SizedBox(
 const kheight20 = SizedBox(
   height: 20,
 );
+const kheight50 = SizedBox(height: 50);
 
 // Border radius
 final BorderRadius kRadius10 = BorderRadius.circular(10);
+final BorderRadius kRadiou30 = BorderRadius.circular(30);
 
 // image
 
@@ -22,7 +24,7 @@ const kMainImage =
 
 // Textstyle
 
-TextStyle kHomeTitleText = TextStyle(
+TextStyle kHomeTitleText = const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.bold,
 );

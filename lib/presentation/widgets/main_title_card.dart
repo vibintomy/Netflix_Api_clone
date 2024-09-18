@@ -19,7 +19,7 @@ class MainTitleCard extends StatelessWidget {
           maxHeight: 200,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: List.generate(10, (index) => MainCard()),
+            children: List.generate(10, (index) =>const MainCard()),
           ),
         )
       ],

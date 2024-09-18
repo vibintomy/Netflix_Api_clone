@@ -1,29 +1,27 @@
-
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
 
 class CustomButtonWidget extends StatelessWidget {
-  const CustomButtonWidget({
-    super.key,
-    required this.icon,
-    required this.title
-  });
+  const CustomButtonWidget(
+      {super.key, required this.icon, required this.title, this.iconSize=30,this.textSize=18});
   final IconData icon;
   final String title;
+  final double iconSize;
+  final double textSize;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Icon(
-         icon,
+          icon,
           color: KwhiteColor,
-          size: 30,
+          size: iconSize,
         ),
         Text(
           title,
-          style:const TextStyle(
-            fontSize: 18,
+          style:  TextStyle(
+            fontSize: textSize,
           ),
         )
       ],
