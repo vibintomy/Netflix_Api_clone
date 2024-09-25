@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/application/model/movie_model.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
 import 'package:netflix_clone/core/constants.dart';
 
 import '../../home/widgets/custom_button_widget.dart';
 import '../../widgets/vedio_widget.dart';
 
-
 class ComingSoonWidget extends StatelessWidget {
+  final Movie upcommingsoon;
   const ComingSoonWidget({
-    super.key,
+    super.key,required this.upcommingsoon
   });
 
   @override
@@ -40,22 +41,27 @@ class ComingSoonWidget extends StatelessWidget {
         SizedBox(
           width: size.width - 50,
           height: 450,
-          child:const Column(
+          child:  Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              VedioWidget(),
-               Row(
+              VedioWidget(mainimage:upcommingsoon.imagePath,),
+             Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Tall Grl 2',
-                    style: TextStyle(
-                        fontSize: 30,
-                        letterSpacing: -5,
-                        fontWeight: FontWeight.bold),
+                  Expanded(
+
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                     
+                                    upcommingsoon.title ,
+                      style: const TextStyle(
+                          fontSize: 25,
+                          letterSpacing: -3,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Spacer(),
-                  Row(
+              const    Spacer(),
+              const    Row(
                     children: [
                       CustomButtonWidget(
                         icon: Icons.notifications,
@@ -76,18 +82,22 @@ class ComingSoonWidget extends StatelessWidget {
                 ],
               ),
               kheight,
-               Text('Coming on Friday'),
+            const  Text('Coming on Friday'),
               kheight,
-             Text(
-                'Tall girl 2',
-                style: TextStyle(
+              Text(
+                upcommingsoon.title,
+                style:const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                'Landing the lead in the school musical is a dream come true for jodin, until the pressure sends her confidence - and her relationship - into a tailspan',
-                style: TextStyle(color: kgrey),
+              Expanded(
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 5,
+                 upcommingsoon.overview,
+                  style:const TextStyle(color: kgrey),
+                ),
               )
             ],
           ),
@@ -96,4 +106,3 @@ class ComingSoonWidget extends StatelessWidget {
     );
   }
 }
-

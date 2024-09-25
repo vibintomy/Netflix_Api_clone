@@ -20,7 +20,8 @@ final BorderRadius kRadiou30 = BorderRadius.circular(30);
 // image
 
 const kMainImage =
-    "https://media.themoviedb.org/t/p/original/pmAv14TPE2vKMIRrVeCd1Ll7K94.jpg";
+    'https://image.tmdb.org/t/p/w600_and_h900_bestv2/1gDV0Lm9y8ufIKzyf0h0GBgb9Zj.jpg';
+     String imageBase = 'https://image.tmdb.org/t/p/w500/'; 
 
 // Textstyle
 

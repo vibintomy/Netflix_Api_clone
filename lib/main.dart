@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
-import 'package:netflix_clone/presentation/mainpage/screen_main_page.dart';
+import 'package:netflix_clone/presentation/home/widgets/splash_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter demo',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(backgroundColor: Colors.transparent),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
         scaffoldBackgroundColor: backgroundColor,
         fontFamily: GoogleFonts.montserrat().fontFamily,
         primarySwatch: Colors.blue,
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
 
         )
       ),
-      home: ScreenMainPage(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -3,8 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:netflix_clone/application/model/movie_model.dart';
 
 class MovieService {
-  static const _apiKey = '40593451ff38fa9a7193007aa1a82c8c';
-  static const _baseUrl = 'https://api.themoviedb.org/3/movie/';
+  
 
   static const _nowplaying =
       'https://api.themoviedb.org/3/movie/now_playing?api_key=40593451ff38fa9a7193007aa1a82c8c';
@@ -13,6 +12,9 @@ class MovieService {
 
   static String _popular =
       'https://api.themoviedb.org/3/movie/popular?api_key=40593451ff38fa9a7193007aa1a82c8c';
+
+  static const _toprated =
+      'https://api.themoviedb.org/3/movie/top_rated?api_key=40593451ff38fa9a7193007aa1a82c8c';
 
   static Future<List<Movie>> getNowPlayingMovies() async {
     final int maxRetries = 3;
@@ -29,7 +31,7 @@ class MovieService {
               .cast<Movie>();
         }
       } catch (e) {
-        print('Error fetching now playing movies: $e');
+       print('Error fetching now playing movies: $e');
       }
 
       retryCount++;
@@ -38,14 +40,13 @@ class MovieService {
     return [];
   }
 
-
   static Future<List<Movie>> getTopRatedMovies() async {
     final int maxtries = 3;
     int retrycout = 0;
     while (retrycout < maxtries) {
       try {
         final response =
-            await http.get(Uri.parse('$_baseUrl/top_rated?api_key=$_apiKey'));
+            await http.get(Uri.parse(_toprated));
         if (response.statusCode == 200) {
           final List<dynamic> data = jsonDecode(response.body)['results'];
           return data

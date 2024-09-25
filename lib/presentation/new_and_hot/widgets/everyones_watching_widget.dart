@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/application/model/movie_model.dart';
 import 'package:netflix_clone/core/constants.dart';
 
 import '../../../core/colors/colors.dart';
 import '../../home/widgets/custom_button_widget.dart';
 import '../../widgets/vedio_widget.dart';
 
-
 class EveryonesWatchWidget extends StatelessWidget {
+  final Movie everyone;
   const EveryonesWatchWidget({
-    super.key,
+    super.key,required this.everyone
   });
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         kheight,
         Text(
-          'Friends',
-          style: TextStyle(
+          everyone.title,
+          style:const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          'This hit sitcin follows the merry misadventures of six 20- something falls as they navigate the pitfalls of work , life and love in 1990s',
-          style: TextStyle(color: kgrey),
+       Text(
+         everyone.overview,
+          style:const TextStyle(color: kgrey),
         ),
         kheight50,
-        VedioWidget(),
+        VedioWidget(mainimage: everyone.imagePath,),
         kheight,
-        Row(
+     const   Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [
+          children:[
             CustomButtonWidget(
               icon: Icons.share,
               title: 'Share',

@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
+import 'package:netflix_clone/core/constants.dart';
 
-class VedioWidget extends StatelessWidget {
+class VedioWidget extends StatefulWidget {
+  final String mainimage;
   const VedioWidget({
-    super.key,
+    super.key,required this.mainimage
   });
 
+  @override
+  State<VedioWidget> createState() => _VedioWidgetState();
+}
+
+class _VedioWidgetState extends State<VedioWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 200,
-          color: Colors.red,
+        child: Image.network(imageBase+widget.mainimage,
+        fit: BoxFit.cover,),
+        
         ),
         Positioned(
           bottom: 10,
