@@ -58,7 +58,7 @@ class _ScreenNewAndHotState extends State<ScreenNewAndHot> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
-                      color: KwhiteColor)),
+                      color: kwhiteColor)),
               actions: [
                 const Icon(
                   Icons.cast,
@@ -74,12 +74,12 @@ class _ScreenNewAndHotState extends State<ScreenNewAndHot> {
               ],
               bottom: TabBar(
                   labelColor: kBlackColor,
-                  unselectedLabelColor: KwhiteColor,
+                  unselectedLabelColor: kwhiteColor,
                   isScrollable: true,
                   labelStyle: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                   indicator: BoxDecoration(
-                      color: KwhiteColor, borderRadius: kRadiou30),
+                      color: kwhiteColor, borderRadius: kRadiou30),
                   tabs: const [
                     Tab(
                       text: "🍿 Coming Soon",

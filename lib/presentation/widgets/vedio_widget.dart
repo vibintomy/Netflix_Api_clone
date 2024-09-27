@@ -34,7 +34,7 @@ class _VedioWidgetState extends State<VedioWidget> {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.volume_off,
-                    color: KwhiteColor,
+                    color: kwhiteColor,
                     size: 20,
                   ))),
         ),

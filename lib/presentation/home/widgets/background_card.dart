@@ -29,7 +29,7 @@ class BackgroundCard extends StatelessWidget {
                   title: "My List",
                   icon: Icons.add,
                 ),
-                _PlayButton(),
+                playButton(),
                 const CustomButtonWidget(icon: Icons.info, title: 'Info')
               ],
             ),
@@ -39,11 +39,11 @@ class BackgroundCard extends StatelessWidget {
     );
   }
 
-  TextButton _PlayButton() {
+  TextButton playButton() {
     return TextButton.icon(
         onPressed: () {},
         style:
-            ButtonStyle(backgroundColor: WidgetStateProperty.all(KwhiteColor)),
+            ButtonStyle(backgroundColor: WidgetStateProperty.all(kwhiteColor)),
         icon: const Icon(
           Icons.play_arrow,
           size: 25,

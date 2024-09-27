@@ -58,7 +58,7 @@ class _ScreenHomeState extends State<ScreenHome> {
             children: [
               ListView(
                 children:  [
-                  BackgroundCard(),
+               const   BackgroundCard(),
                   MainTitleCard(
                     movies: toprated,
                     title: 'Released in the past year',

@@ -38,7 +38,7 @@ class NumberCard extends StatelessWidget {
             bottom: -40,
             child: BorderedText(
                 strokeWidth: 10.0,
-                strokeColor: KwhiteColor,
+                strokeColor: kwhiteColor,
                 child: Text(
                   '${index + 1}',
                   style: const TextStyle(

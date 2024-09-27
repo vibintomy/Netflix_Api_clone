@@ -15,7 +15,7 @@ class CustomButtonWidget extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: KwhiteColor,
+          color: kwhiteColor,
           size: iconSize,
         ),
         Text(

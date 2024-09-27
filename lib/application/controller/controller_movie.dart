@@ -10,14 +10,14 @@ class MovieService {
   static const _upcomming =
       'https://api.themoviedb.org/3/movie/upcoming?api_key=40593451ff38fa9a7193007aa1a82c8c';
 
-  static String _popular =
+  static const String _popular =
       'https://api.themoviedb.org/3/movie/popular?api_key=40593451ff38fa9a7193007aa1a82c8c';
 
   static const _toprated =
       'https://api.themoviedb.org/3/movie/top_rated?api_key=40593451ff38fa9a7193007aa1a82c8c';
 
   static Future<List<Movie>> getNowPlayingMovies() async {
-    final int maxRetries = 3;
+    const int maxRetries = 3;
     int retryCount = 0;
 
     while (retryCount < maxRetries) {
@@ -41,7 +41,7 @@ class MovieService {
   }
 
   static Future<List<Movie>> getTopRatedMovies() async {
-    final int maxtries = 3;
+    const int maxtries = 3;
     int retrycout = 0;
     while (retrycout < maxtries) {
       try {
@@ -84,7 +84,7 @@ class MovieService {
   }
 
   static Future<List<Movie>> getUpCommingmovies() async {
-    final int maxtries = 3;
+    const int maxtries = 3;
     int retrycount = 0;
     while (retrycount < maxtries) {
       try {

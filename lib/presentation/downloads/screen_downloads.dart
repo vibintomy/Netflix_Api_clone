@@ -44,7 +44,7 @@ class Section2 extends StatelessWidget {
           "Introducing Downloads for you",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: KwhiteColor, fontSize: 24, fontWeight: FontWeight.bold),
+              color: kwhiteColor, fontSize: 24, fontWeight: FontWeight.bold),
         ),
         kheight,
         const Text(
@@ -98,7 +98,7 @@ class Section3 extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: MaterialButton(
-            color: KbuttonColorBlue,
+            color: kbuttonColorBlue,
             onPressed: () {},
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
@@ -108,7 +108,7 @@ class Section3 extends StatelessWidget {
               child: Text(
                 "Setup",
                 style: TextStyle(
-                    color: KwhiteColor,
+                    color: kwhiteColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
@@ -117,7 +117,7 @@ class Section3 extends StatelessWidget {
         ),
         kheight,
         MaterialButton(
-          color: Kbuttonwhite,
+          color: kbuttonwhite,
           onPressed: () {},
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
@@ -150,7 +150,7 @@ class _SmartDownloads extends StatelessWidget {
         kwidth,
         Icon(
           Icons.settings,
-          color: KwhiteColor,
+          color: kwhiteColor,
         ),
         kwidth,
         Text("Smart Downloads")

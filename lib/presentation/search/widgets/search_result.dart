@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/application/model/movie_model.dart';
 import 'package:netflix_clone/core/constants.dart';
 import 'package:netflix_clone/presentation/search/widgets/title.dart';
 
 const imageUrl =
-    "https://media.themoviedb.org/t/p/w220_and_h330_face/m2zXTuNPkywdYLyWlVyJZW2QOJH.jpg";
+   'https://image.tmdb.org/t/p/w600_and_h900_bestv2/sK6Nr6KNUA4WlAHyNBTioz9FK87.jpg';
 
 class SearchResultWidget extends StatelessWidget {
-  const SearchResultWidget({super.key});
+  final List<Movie> result;
+  const SearchResultWidget({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +23,11 @@ class SearchResultWidget extends StatelessWidget {
             crossAxisCount: 3,
             mainAxisSpacing: 5,
             crossAxisSpacing: 8,
-            childAspectRatio: 1/1.4,
-            children: List.generate(20, (index) {
-              return const MainCard();
+            childAspectRatio: 1 / 1.4,
+            children: List.generate(result.length, (index) {
+              return  MainCard(
+                url: result[index].imagePath,
+              );
             }),
           ),
         ),
@@ -33,16 +37,17 @@ class SearchResultWidget extends StatelessWidget {
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({super.key});
+  final String? url;
+  const MainCard({super.key,this.url});
 
   @override
   Widget build(BuildContext context) {
-    return Container(decoration: BoxDecoration(
-      image:const DecorationImage(image: NetworkImage(imageUrl),
-      fit: BoxFit.cover),
-      borderRadius: BorderRadius.circular(7),
-    ),
-
+    return Container(
+      decoration: BoxDecoration(
+        image:  DecorationImage(
+            image: NetworkImage(imageBase+url!), fit: BoxFit.cover),
+        borderRadius: BorderRadius.circular(7),
+      ),
     );
   }
 }
