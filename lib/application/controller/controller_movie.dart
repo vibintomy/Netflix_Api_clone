@@ -1,10 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:netflix_clone/application/model/movie_model.dart';
 
 class MovieService {
-  
-
   static const _nowplaying =
       'https://api.themoviedb.org/3/movie/now_playing?api_key=40593451ff38fa9a7193007aa1a82c8c';
   static const _upcomming =
@@ -31,7 +30,9 @@ class MovieService {
               .cast<Movie>();
         }
       } catch (e) {
-       print('Error fetching now playing movies: $e');
+        if (kDebugMode) {
+          print('Error fetching now playing movies: $e');
+        }
       }
 
       retryCount++;
@@ -45,8 +46,7 @@ class MovieService {
     int retrycout = 0;
     while (retrycout < maxtries) {
       try {
-        final response =
-            await http.get(Uri.parse(_toprated));
+        final response = await http.get(Uri.parse(_toprated));
         if (response.statusCode == 200) {
           final List<dynamic> data = jsonDecode(response.body)['results'];
           return data
@@ -55,7 +55,9 @@ class MovieService {
               .cast<Movie>();
         }
       } catch (e) {
-        print('Error while fetching the data');
+        if (kDebugMode) {
+          print('Error while fetching the data');
+        }
       }
       retrycout++;
     }
@@ -76,7 +78,9 @@ class MovieService {
               .cast<Movie>();
         }
       } catch (e) {
-        print('Error while fetching the data');
+        if (kDebugMode) {
+          print('Error while fetching the data');
+        }
       }
       retryCount++;
     }
@@ -97,10 +101,13 @@ class MovieService {
               .cast<Movie>();
         }
       } catch (e) {
-        print('Error while fetching the data');
+        if (kDebugMode) {
+          print('Error while fetching the data');
+        }
       }
       retrycount++;
     }
     return [];
   }
+
 }

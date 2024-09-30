@@ -1,12 +1,13 @@
+import 'dart:async';  
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/application/controller/controller_movie.dart';
+import 'package:netflix_clone/application/controller/controller_movie.dart';  
 import 'package:netflix_clone/application/model/movie_model.dart';
-import 'package:netflix_clone/core/constants.dart';
+import 'package:http/http.dart' as http;
 import 'package:netflix_clone/presentation/search/widgets/search_idle.dart';
 import 'package:netflix_clone/presentation/search/widgets/search_result.dart';
-import 'package:http/http.dart' as http;
 
 class ScreenSearch extends StatefulWidget {
   const ScreenSearch({super.key});
@@ -19,49 +20,65 @@ class _ScreenSearchState extends State<ScreenSearch> {
   final controller = TextEditingController();
   List<Movie> popular = [];
   List<Movie> searchResult = [];
-  bool istapped = false;
+  bool isIdle = true;  
+
+  Timer? _debounce;  
 
   @override
   void initState() {
     super.initState();
-    getpopular();
-    controller.addListener(_onSearchChanges);
+    getPopularMovies();  
   }
 
   @override
   void dispose() {
-    controller.removeListener(_onSearchChanges);
     controller.dispose();
+    _debounce?.cancel();  
     super.dispose();
   }
 
-  Future<void> getpopular() async {
-    popular = await MovieService.getPopularMovies();
-    setState(() {});
-  }
-
-  void _onSearchChanges() async {
-    if (controller.text.isEmpty) {
-      setState(() {
-        istapped = true;
-        searchResult.clear();
-      });
-    } else {
-      await _fetchdatafromServer(controller.text);
+  
+  Future<void> getPopularMovies() async {
+    try {
+      popular = await MovieService.getPopularMovies();
+      setState(() {});
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error fetching popular movies: $e');
+      }
     }
   }
 
-  Future<void> _fetchdatafromServer(String query) async {
-    if (query.isEmpty) return; // Avoid making a request with an empty query
+  
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();  
+
+    _debounce = Timer(const Duration(milliseconds: 500), () {  
+      if (query.isEmpty) {
+        setState(() {
+          isIdle = true;  
+          searchResult.clear();
+        });
+      } else {
+        _fetchDataFromServer(query);
+      }
+    });
+  }
+
+ 
+  Future<void> _fetchDataFromServer(String query) async {
+    if (query.isEmpty) return;
 
     try {
-      List<Movie> result = await searchFunction(query);
+      List<Movie> result = await _searchMovies(query);  
       setState(() {
-        istapped = false; // Display search results instead of popular
+        isIdle = false;
         searchResult = result;
       });
     } catch (e) {
-      print('Error in fetching data: $e'); // Better logging
+      if (kDebugMode) {
+        print('Error fetching data from server: $e');
+      }
     }
   }
 
@@ -76,18 +93,13 @@ class _ScreenSearchState extends State<ScreenSearch> {
             children: [
               CupertinoSearchTextField(
                 controller: controller,
-                onChanged: (value) {
-                  setState(() {
-                    istapped = value.isEmpty;
-                  });
-                  _fetchdatafromServer(value);
-                },
+                onChanged: _onSearchChanged,  
                 backgroundColor: Colors.grey.withOpacity(0.4),
                 prefixIcon: const Icon(CupertinoIcons.search, color: Colors.grey),
                 suffixIcon: const Icon(CupertinoIcons.xmark_circle_fill, color: Colors.grey),
                 style: const TextStyle(color: Colors.white),
               ),
-              kheight,
+              const SizedBox(height: 10),  
               _buildResultList(),
             ],
           ),
@@ -96,15 +108,17 @@ class _ScreenSearchState extends State<ScreenSearch> {
     );
   }
 
+ 
   Widget _buildResultList() {
     return Expanded(
-      child: istapped
+      child: isIdle
           ? SearchIdleWidget(result: popular.isNotEmpty ? popular : [])
           : SearchResultWidget(result: searchResult),
     );
   }
 
-  Future<List<Movie>> searchFunction(String query) async {
+  
+  Future<List<Movie>> _searchMovies(String query) async {
     const apiKey = '40593451ff38fa9a7193007aa1a82c8c';
     const baseUrl = 'https://api.themoviedb.org/3/search/movie';
 
@@ -112,14 +126,17 @@ class _ScreenSearchState extends State<ScreenSearch> {
       final response = await http.get(Uri.parse('$baseUrl?api_key=$apiKey&query=$query'));
 
       if (response.statusCode == 200) {
-      
         final List<dynamic> data = jsonDecode(response.body)['results'];
         return data.map((json) => Movie.fromJson(json)).toList().cast<Movie>();
       } else {
-        print('Failed to fetch movies. Status code: ${response.statusCode}');
+        if (kDebugMode) {
+          print('Failed to fetch movies. Status code: ${response.statusCode}');
+        }
       }
     } catch (e) {
-      print('Error in fetching data: $e');
+      if (kDebugMode) {
+        print('Error fetching search results: $e');
+      }
     }
 
     return [];
